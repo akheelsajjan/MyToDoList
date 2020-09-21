@@ -210,8 +210,8 @@ export class AddIssueComponent implements OnInit, OnChanges {
   //   const contentType = file.type;
   //   const bucket = new S3(
   //         {
-  //             accessKeyId: 'AKIAJEQSLD5RKRBVBMTQ',
-  //             secretAccessKey: '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',
+  //             accessKeyId: '',
+  //             secretAccessKey: '',
   //             region: 'ap-south-1',
 
   //         }
@@ -241,8 +241,8 @@ export class AddIssueComponent implements OnInit, OnChanges {
       const contentType = file.type;
       const bucket = new S3(
         {
-          accessKeyId: 'AKIAJEQSLD5RKRBVBMTQ',
-          secretAccessKey: '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',
+          accessKeyId: '',
+          secretAccessKey: '',
           region: 'ap-south-1',
 
         }
