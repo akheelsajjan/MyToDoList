@@ -1,0 +1,112 @@
+<div class="card issueViewCard ">
+    <div class="card-body">
+        <div class="container ">
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Issue Name</b>
+                </div>
+                <div class="col-md-8">
+                    <p>{{issueView.issueName | titlecase }}</p>
+                </div>
+            </div>
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Status</b>
+                </div>
+                <div class="col-md-8">
+                    <p>{{issueView.status}}</p>
+                </div>
+            </div>
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Reporter Name</b>
+                </div>
+                <div class="col-md-8">
+                    <p>{{issueView.reporterName | titlecase}}</p>
+                </div>
+            </div>
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Created on</b>
+                </div>
+                <div class="col-md-8">
+                    <p>{{issueView.generatedOn |  date:'medium'}}</p>
+                </div>
+            </div>
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Assigned to</b>
+                </div>
+                <div class="col-md-8">
+                    <p>{{assignee | titlecase}}</p>
+                </div>
+            </div>
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Description</b>
+                </div>
+                <div class="col-md-8">
+                    <p [innerHtml]=issueView.discription>{{issueView.discription | titlecase}}</p>
+                </div>
+            </div>
+            <div class="row mobileCard">
+                <div class="col-md-4">
+                    <b>Attachment</b>
+                </div>
+                <div class="col-md-8" *ngIf='issueView.attachment'>
+                    <a href="{{issueView.attachment}}" target="blank" title="Download">{{attachment | titlecase}}</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <b>Comments</b>
+                </div>
+                <div class="col-md-8">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <textarea class="form-control" rows="2" [(ngModel)]="comment"
+                        placeholder="Enter your comment"></textarea>
+                </div>
+                <div class="col-md-4" style="padding-top: 10px;">
+                    <button type="button" (click)="addComment()" class="btn btn-light">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill color" style=" color: teal;"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                        <span>&nbsp;</span><b>Add</b></button>
+                </div>
+            </div>
+            <div *ngIf = "!AllComments" class="commentblock">
+                <div class="row">
+                    <div class="col align-self-center">
+                        No comments to display
+                    </div>
+                   
+                </div>
+            </div>
+            <div *ngFor="let comments of AllComments">
+                <div
+                    [ngClass]="{myComment: comments.userID == receiverId, otherComment:comments.userID != receiverId }">
+                    <div class="row">
+                        <div class="col-md-8 commentblock">
+                            <span class="userName">{{comments.userName | titlecase}}</span>
+                            <span class="date">{{comments.generatedOn | date}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-8 comment">
+                            <span class="">{{comments.comment}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

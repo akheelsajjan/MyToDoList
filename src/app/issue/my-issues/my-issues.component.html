@@ -1,0 +1,42 @@
+<nav class="navbar bg-info text-white">
+    <div class="flex-container" style="width: 70%;">
+        <input class="form-control w-100 "  type="search" placeholder="Search" aria-label="Search">
+      </div>
+</nav>
+
+<div *ngIf="!myIssueList" class="noSelect">
+    Please add a Issue
+</div>
+
+<div class="main" *ngIf='myIssueList'>
+    <div class="mobileTabel_main">
+        <div class="table-responsive-sm">
+            <table class="table table-hover table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Stauts</th>
+                        <th scope="col">Reporter</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let issue of myIssueList | paginate: { itemsPerPage: value, currentPage: p }"
+                        (click)="issueView(issue)">
+                        <td>{{issue.issueName | titlecase}}</td>
+                        <td>{{issue.status}}</td>
+                        <td>{{issue.reporterName | titlecase}}</td>
+                        <td>{{issue.generatedOn| date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="paginate">
+    <pagination-controls (pageChange)="p = $event" class="paginator"></pagination-controls>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white">Please Wait. </p>  
+</ngx-spinner>

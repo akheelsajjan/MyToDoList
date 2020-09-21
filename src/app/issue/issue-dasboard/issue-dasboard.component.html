@@ -1,0 +1,146 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="/">Issue Tracker</a>
+  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+  
+      <span class="navbar-toggler-icon"></span>
+  
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
+      <ul class="navbar-nav mr-auto">
+  
+        <li class="nav-item">
+  
+          <a class="nav-link" (click)="logout()">LogOut</a>
+  
+        </li>
+  
+      </ul>
+  
+    </div>
+  
+  </nav>
+
+<div class="container todobox">
+    <div class="row">
+        <div class="col-md-3" style="background-color: gray;">
+            <div class="d-inline-flex p-2 bd-highlight displayUser">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                      <b>  Hello </b>  {{receiverName}}
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <button type="button" class="btn btn-light addIssue" (click)="addIssuelist()">
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill color"
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                    </svg>
+                   <span>&nbsp;</span><b>Add Issue </b> 
+                </button>
+                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 2vh;width: 100%;">
+                    <button type="button" class="btn btn-info listbuttons2 issuebyme" (click)="myIssue()">My
+                        Issues</button>
+                    <button type="button" class="btn btn-info  listbuttons2 issuebyothers" (click)="otherIssue()">Others
+                        Issues</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 main-display">
+
+            <ng-container
+                [ngTemplateOutlet]="noIssues? noIssueTemplate:myIssues? myIssueTemplate:otherIssues? otherIssueTemplate:addIssue?AddIssue:issueViewId?IssueViewTemplate:'' ">
+            </ng-container>
+
+            <ng-template #noIssueTemplate>
+                <div class="noSelect">
+                   <h1>Welcome To Issue Tracker</h1>
+                </div>
+            </ng-template>
+            <ng-template #AddIssue>
+                <nav class="navbar bg-info text-white">
+                    <h2>Issue</h2>
+                </nav>
+                <app-add-issue [submit]='submit' #addIssue></app-add-issue>
+            </ng-template>
+            <ng-template #myIssueTemplate>
+                <app-my-issues (issueEvent)="receiveIssue($event)" [myIssueList]="myIssueList" #myissueParent></app-my-issues>
+            </ng-template>
+            <ng-template #otherIssueTemplate>
+                <app-other-issues (issueEvent)="receiveIssue($event)" #otherIssueParent></app-other-issues>
+            </ng-template>
+            <ng-template #IssueViewTemplate>
+                <nav class="navbar bg-info text-white">
+                    <div class="flex-container">
+                        <div class="issueView" style="">
+                            <h5> Issue View </h5>
+                        </div>
+                        <div class="edit">
+                            <div>
+                                <button type="button" class="btn btn-light addIssue" (click)="edit()">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd"
+                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                    Edit
+                                </button>
+                            </div>
+
+                            <div *ngIf="!myIssueView">
+                                <button type="button" class="btn btn-light addIssue" (click)="watchIssue()">
+                                    <svg [ngClass]="{display:!watch}" width="2em" height="2em" viewBox="0 0 16 16"
+                                        class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                    </svg>
+                                    <svg [ngClass]="{display:watch}" width="2em" height="2em" viewBox="0 0 16 16"
+                                        class="bi bi-eye-slash-fill" fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M10.79 12.912l-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                                        <path
+                                            d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829z" />
+                                        <path fill-rule="evenodd" d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z" />
+                                    </svg>
+                                    <!--{{watchCount }}  -->
+                                </button>
+                            </div>
+                            <div *ngIf="myIssueView">
+                                <button type="button" class="btn btn-light addIssue">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-eye-fill"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                    </svg>
+                                    <!--{{watchCount }}  -->
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </nav>
+                <app-issue-view [issueView]='issueView' (watcherData)="watcherInfo($event)" #watcher></app-issue-view>
+            </ng-template>
+
+            <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+                <p style="color: white">Please Wait. </p>  
+              </ngx-spinner> 
+        </div>
+    </div>
+
+</div>

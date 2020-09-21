@@ -1,0 +1,60 @@
+.commentblock{
+    padding-top: 2vh;
+    width: 100%;
+}
+
+.userName{
+    font-size: smaller;
+    text-decoration: underline;
+}
+
+.date{
+    font-size: x-small;
+    margin-left: 1vh;
+    text-decoration: underline;
+}
+
+.comment{
+    font-size: smaller;
+    background-color: #69bdd2;
+    padding: 2%;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    margin-right: 3vh;
+    border-radius: 10%;
+    color: white;
+}
+
+
+
+.issueViewCard{
+    max-height: 79vh;
+    overflow-x: hidden;
+    overflow-y: scroll
+}
+
+.myComment{
+    position: relative;
+    left: 15vw;
+}
+
+.otherComment{
+
+}
+
+@media only screen and (min-height: 667px)  {
+    .issueViewCard{
+        max-height: 76vh;
+       
+    }
+  }
+
+
+@media only screen and (max-width: 767px) {
+    .mobileCard{
+        padding-top: 15px;
+        box-shadow: 1px 1px 1px 1px rgba(0.1,0.1,0,0.1);
+        transition: 0.3s;
+        border-radius: 5px; /* 5px rounded corners */
+    }
+  }

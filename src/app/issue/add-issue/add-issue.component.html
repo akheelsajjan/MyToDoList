@@ -1,0 +1,151 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div *ngIf="!apiResponse" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class=" form-group row">
+                            <label class="col-md-3 col-form-label">Name</label>
+                            <div class="col-md-6">
+                               <p *ngIf="issueValue">{{issueValue.issueName}}</p>
+                            </div>
+                        </div>
+                        <div class=" form-group row">
+                            <label class="col-md-3 col-form-label">Status</label>
+                            <div class="col-md-6">
+                                <p *ngIf="issueValue">{{issueValue.status}}</p>
+                            </div>
+                        </div>
+                        <div class=" form-group row">
+                            <label class="col-md-3 col-form-label">Discription</label>
+                            <div class="col-md-6">
+                                <div *ngIf="issueValue" [innerHTML]='issueValue.discription'>{{issueValue.discription}}</div>
+                            </div>
+                        </div>
+                        <div class=" form-group row">
+                            <label class="col-md-3 col-form-label">Assignee</label>
+                            <div class="col-md-6" *ngIf="issueValue">
+                                <div *ngFor="let user of allUser">
+                                    <span *ngIf="user.userId==issueValue.assignedTo">  <p>{{user.firstName}}{{' '}}{{user.lastName}}</p></span>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class=" form-group row">
+                            <label class="col-md-3 col-form-label">Attachments</label>
+                            <div class="col-md-6">
+                                <p *ngIf="fileName">{{fileName}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info"   (click)="submit_true()" data-dismiss="modal">Submit</button>
+                <button type="button" (click)="response_data()" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="profileForm" (ngSubmit)="submit()">
+    <div class="card">
+        <div class="card-body">
+            <div class=" form-group row">
+                <label class="col-md-3 col-form-label">Issue Name</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Enter issue Name " formControlName="issueName"
+                        id="issueName">
+                    <div *ngIf="f.issueName.invalid && (f.issueName.dirty || f.issueName.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="f.issueName.errors.required">
+                            Issue Name is required.
+                        </div>
+                        <div *ngIf="f.issueName.errors.minlength">
+                            Issue Name must be at least 3 characters long.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group row">
+                <label class="col-md-3 col-form-label">Issue Status</label>
+                <div class="col-md-6">
+                    <select class="dropdown" formControlName="status">
+                        <option class="dropdown-values" *ngFor='let status of issueStatus' [ngValue]="status">{{status}}
+                        </option>
+                    </select>
+                    <div *ngIf="(f.status.dirty || f.status.touched) && (f.status.errors?.required)"
+                        class="alert alert-danger">
+                        Issue Status is required.
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group row">
+                <label class="col-md-3 col-form-label">Description</label>
+                <div class="col-md-9">
+                    <!-- <textarea class="form-control" placeholder="Enter discription" rows="2" id="comment" formControlName="discription"></textarea> -->
+                    <angular-editor formControlName="discription" [placeholder]="'Enter discription here...'"
+                        style="height: 200px;" [config]="editorConfig"></angular-editor>
+                    <div *ngIf="f.discription.invalid && (f.discription.dirty || f.discription.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="f.discription.errors?.required">
+                            Issue discription is required.
+                        </div>
+                        <div *ngIf="f.discription.errors?.minlength">
+                            Issue discription must be at least 3 characters long.
+                        </div>
+                        <div *ngIf="f.discription.invalid">
+                           Images/files or any format not suported 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group row">
+                <label class="col-md-3 col-form-label">Assigned to</label>
+                <div class="col-md-6">
+                    <select class="dropdown" formControlName="assignedTo">
+                        <option class="dropdown-values" *ngFor='let user of allUser' [ngValue]="user.userId">
+                            <p>{{user.firstName}}{{' '}}{{user.lastName}}</p>
+                        </option>
+                    </select>
+                    <div *ngIf="(f.assignedTo.dirty || f.assignedTo.touched) && (f.assignedTo.errors?.required)"
+                        class="alert alert-danger">
+                        Assignee is required.
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group row">
+                <label class="col-md-3 col-form-label">Attachments</label>
+                <div class="col-md-6">
+                    <div *ngIf = 'edit_submit && uploadDifferntFile'><a href="{{edit_issue.attachment }}" target="blank" title="Download">{{attachment}}</a></div>
+                    <input type="file"  (change)="fileEvent($event)" placeholder="choose different file" formControlName="attachments">
+                </div>
+            </div>
+            <div class=" form-group row">
+                <label class="col-md-3 col-form-label"></label>
+                <div class="col-md-9">
+                    <button type="button" style="width: 40%;" (click)="clear()"
+                        class="btn btn-info btn-lg ">clear</button>
+                    <button (click)="submit()" data-toggle="modal" data-target="#exampleModal"
+                        style="margin-left: 3%; width: 50%;" [disabled]="profileForm.invalid" type="button"
+                        class="btn btn-info btn-lg ">Submit</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</form>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white">Please Wait. </p>  
+  </ngx-spinner> 
