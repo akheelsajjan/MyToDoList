@@ -72,19 +72,19 @@ The dashbord has two boards.<br>
 
 <!----End Of Issue Tracker--------------->
 
-
+<br>
 ExtraFeatures: I have used Loader/Spinner. For Loader/Spinner I have used ngx-spinner which will be displayed until user gets response.
                For rich text editor I have used ngx editor.
 
-		 
+<br>	 
 Github repository link of this project:	https://github.com/akheelsajjan/MyToDoList
-
+<br>
 <!-------URL------------>
 
-Frontend:  http://techblogs.live/
-Backend :  http://api.techblogs.live/
-Docs    :  http://docs.techblogs.live/
-
+Frontend:  http://techblogs.live/ <br>
+Backend :  http://api.techblogs.live/ <br>
+Docs    :  http://docs.techblogs.live/ 
+ 
 
 
 
