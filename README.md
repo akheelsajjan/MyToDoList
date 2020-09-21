@@ -1,8 +1,8 @@
-Project Name - - Issue Tracking Tool
+Project Name - <h2>Issue Tracking Tool</h2>
 
 <!-------Landing Page--------->
 
-Sign-In:
+<u>Sign-In:</u>
 Two fields are present, where user has to enter Email-Id and Password to login.
 If the credentials given are correct and if the user exits in database, user shall be logged In,
 Else appropriate message will be shown to user.
@@ -30,15 +30,15 @@ User shall be redirected to login page after reseting the password.
 
 <!-------Issue Tracker--------------->
 
-Dasboard View:
+<h2>Dasboard View:<.h2>
 The dashbord has two boards.
-i)Static dashboard: 
+<b>i)Static dashboard: <b>
   On to the left is the static dashboard. The view remains constant through-out the application.
   It starts with a greeting to a user("Hello" followed by name).
   It has a add issue button with '+' button.
   It has two buttons grouped-'My Issues' button & 'Other Issues button'.
 
-ii)Dynamic dashboard:
+<b>ii)Dynamic dashboard:<b>
    The big view on right side is the 'Dynamic dashboard'.
    By default on page load, 'Welcome to Issue Tracker' is displayed.
 
