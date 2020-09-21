@@ -71,10 +71,11 @@ The dashbord has two boards.<br>
    Comments can be added. Currently logged in users comment will appear on right and other users comment will be on left.
 
 <!----End Of Issue Tracker--------------->
-
+<hr>
 <br>
 ExtraFeatures: I have used Loader/Spinner. For Loader/Spinner I have used ngx-spinner which will be displayed until user gets response.
                For rich text editor I have used ngx editor.
+<hr>
 
 <br>	 
 Github repository link of this project:	https://github.com/akheelsajjan/MyToDoList
