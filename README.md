@@ -31,14 +31,14 @@ User shall be redirected to login page after reseting the password.
 <!-------Issue Tracker--------------->
 
 <h2>Dasboard View:</h2>
-The dashbord has two boards.
-<b>i)Static dashboard: <b>
+The dashbord has two boards.<br>
+<h4>i)Static dashboard: <h4>
   On to the left is the static dashboard. The view remains constant through-out the application.
   It starts with a greeting to a user("Hello" followed by name).
   It has a add issue button with '+' button.
   It has two buttons grouped-'My Issues' button & 'Other Issues button'.
 
-<b>ii)Dynamic dashboard:<b>
+<h4>ii)Dynamic dashboard:<h4>
    The big view on right side is the 'Dynamic dashboard'.
    By default on page load, 'Welcome to Issue Tracker' is displayed.
 
