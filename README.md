@@ -30,7 +30,7 @@ User shall be redirected to login page after reseting the password.
 
 <!-------Issue Tracker--------------->
 
-<h2>Dasboard View:<.h2>
+<h2>Dasboard View:</h2>
 The dashbord has two boards.
 <b>i)Static dashboard: <b>
   On to the left is the static dashboard. The view remains constant through-out the application.
